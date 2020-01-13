@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    tools:context=".a.AConfigActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/themeColor">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/themeColor">
+                <TextView
+                    android:text="WiFi配网"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/back"
+                    android:padding="16sp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WIFI名称:"/>
+
+        <EditText
+            android:textColor="#666666"
+            android:paddingLeft="5dp"
+            android:id="@+id/et_name"
+            android:hint=""
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:enabled="false"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WIFI密码:"/>
+
+        <EditText
+            android:textColor="#666666"
+            android:paddingLeft="5dp"
+            android:id="@+id/et_pswd"
+            android:hint="请输入当前WIFI密码"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/selectedColor"
+            android:text="一键配置"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/page_waite" android:id="@+id/view_loading" android:visibility="gone"/>
+
+</RelativeLayout>
