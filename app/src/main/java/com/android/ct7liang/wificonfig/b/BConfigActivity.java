@@ -143,17 +143,17 @@ public class BConfigActivity extends BaseActivity {
 
         LogUtils.write(ssid + ", " + bssid + ", " + password);
 
-//        byte[] ssids = ByteUtil.getBytesByString(ssid);
-//        byte[] passwords = ByteUtil.getBytesByString(password);
-//        byte[] bssids = TouchNetUtil.parseBssid2bytes(bssid);
-//        byte[] deviceCount = "1".getBytes();
-//        byte[] broadcast = {(byte) (type)};
-//
-//        if (mTask != null) {
-//            mTask.cancelEsptouch();
-//        }
-//        mTask = new EsptouchAsyncTask4(this);
-//        mTask.execute(ssids, bssids, passwords, deviceCount, broadcast);
+        byte[] ssids = ByteUtil.getBytesByString(ssid);
+        byte[] passwords = ByteUtil.getBytesByString(password);
+        byte[] bssids = TouchNetUtil.parseBssid2bytes(bssid);
+        byte[] deviceCount = "1".getBytes();
+        byte[] broadcast = {(byte) (type)};
+
+        if (mTask != null) {
+            mTask.cancelEsptouch();
+        }
+        mTask = new EsptouchAsyncTask4(this);
+        mTask.execute(ssids, bssids, passwords, deviceCount, broadcast);
     }
 
     private static class EsptouchAsyncTask4 extends AsyncTask<byte[], IEsptouchResult, List<IEsptouchResult>> {
