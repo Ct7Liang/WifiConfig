@@ -46,7 +46,6 @@ public class AConfigActivity extends BaseActivity {
         setTitleBar();
     }
 
-
     @Override
     public void initSurface() {
         initStatusBar();
