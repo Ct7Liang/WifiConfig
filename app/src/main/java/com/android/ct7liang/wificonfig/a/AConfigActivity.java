@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -149,7 +150,7 @@ public class AConfigActivity extends BaseActivity {
                         int replyByteCounter = 0;
                         udpServerSocket.setSoTimeout(5*1000);
                         while (true) {
-                            if (getStatus() == AsyncTask.Status.FINISHED){
+                            if (getStatus() == Status.FINISHED){
                                 break;
                             }
                             try {
