@@ -62,7 +62,7 @@ public class BConfigActivity extends BaseActivity {
                     @Override
                     public void run() {
                         loadingView.setVisibility(View.GONE);
-                        showInfoWindow("配网成功");
+                        showInfoWindow("配网完成");
                     }
                 });
 
@@ -75,7 +75,7 @@ public class BConfigActivity extends BaseActivity {
                     @Override
                     public void run() {
                         loadingView.setVisibility(View.GONE);
-                        showInfoWindow("配网失败");
+                        showInfoWindow("配网完成");
                     }
                 });
             }
