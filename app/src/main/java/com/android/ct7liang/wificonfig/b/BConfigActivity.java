@@ -27,6 +27,8 @@ public class BConfigActivity extends BaseActivity {
     private String ssid;
     private NetworkChangedReceiver networkChangedReceiver;
 
+    private View loadingView;
+
     @Override
     public int setLayout() {
         return R.layout.activity_bconfig;
@@ -37,9 +39,11 @@ public class BConfigActivity extends BaseActivity {
         setTitleBar();
     }
 
-
     @Override
     public void initSurface() {
+
+        loadingView = findViewById(R.id.view_loading);
+
         initStatusBar();
         etName = findViewById(R.id.et_name);
         etPswd = findViewById(R.id.et_pswd);
@@ -57,6 +61,7 @@ public class BConfigActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        loadingView.setVisibility(View.GONE);
                         showInfoWindow("配网成功");
                     }
                 });
@@ -69,6 +74,7 @@ public class BConfigActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        loadingView.setVisibility(View.GONE);
                         showInfoWindow("配网失败");
                     }
                 });
@@ -89,7 +95,10 @@ public class BConfigActivity extends BaseActivity {
                     return;
                 }
 
-                StartaiAirkissManager.getInstance().startAirKiss(pswd, ssid, "".getBytes(), 1000 * 90, 0, 5);
+                loadingView.setVisibility(View.VISIBLE);
+
+                StartaiAirkissManager.getInstance().startAirKiss(pswd, ssid, "".getBytes(), 1000 * 60, 0, 5);
+
                 break;
         }
     }

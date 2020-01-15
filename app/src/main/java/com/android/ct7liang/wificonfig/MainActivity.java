@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean){
 
-                            findViewById(R.id.btn_a).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    startActivity(new Intent(MainActivity.this, AConfigActivity.class));
-                                }
-                            });
+//                            findViewById(R.id.btn_a).setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    startActivity(new Intent(MainActivity.this, AConfigActivity.class));
+//                                }
+//                            });
 
                             findViewById(R.id.btn_b).setOnClickListener(new View.OnClickListener() {
                                 @Override

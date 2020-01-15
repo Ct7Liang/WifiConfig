@@ -8,11 +8,11 @@
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/btn_a"
-        android:text="配网1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<Button-->
+        <!--android:id="@+id/btn_a"-->
+        <!--android:text="配网1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
     <Button
         android:id="@+id/btn_b"

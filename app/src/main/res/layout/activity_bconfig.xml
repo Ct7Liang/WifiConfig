@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/selectedColor"
-            android:text="一键配置1"
+            android:text="一键配置"
             android:textSize="16sp"
             android:textColor="#FFFFFF"
             android:gravity="center"
