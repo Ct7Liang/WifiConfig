@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.ct7liang.wificonfig.R;
-import com.android.ct7liang.wificonfig.a.SystemUtils;
 import com.android.ct7liang.wificonfig.base.BaseActivity;
 import com.ct7liang.tangyuan.utils.ToastUtils;
 import com.tencent.mm.plugin.exdevice.jni.C2JavaExDevice;
@@ -26,7 +27,6 @@ public class BConfigActivity extends BaseActivity {
     private EditText etPswd;
     private String ssid;
     private NetworkChangedReceiver networkChangedReceiver;
-
     private View loadingView;
 
     @Override
@@ -44,8 +44,13 @@ public class BConfigActivity extends BaseActivity {
 
         loadingView = findViewById(R.id.view_loading);
 
+        loadingView.setOnClickListener(this);
+
+        findViewById(R.id.cancel).setOnClickListener(this);
+
         initStatusBar();
         etName = findViewById(R.id.et_name);
+        etName.setEnabled(false);
         etPswd = findViewById(R.id.et_pswd);
         TextView tvCommit1 = findViewById(R.id.btn1);
 
@@ -62,7 +67,7 @@ public class BConfigActivity extends BaseActivity {
                     @Override
                     public void run() {
                         loadingView.setVisibility(View.GONE);
-                        showInfoWindow("配网完成");
+                        showInfoWindow("配网成功");
                     }
                 });
 
@@ -88,16 +93,34 @@ public class BConfigActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.btn1:
 
-                String pswd = etPswd.getText().toString().trim();
+                if ("未检测到有WIFI连接".equals(ssid)){
+                    showInfoWindow("请打开Wifi开关,连接wifi");
+                    return;
+                }
 
+                if ("获取ssid失败,请手动输入当前wifi名称".equals(ssid)){
+                    showInfoWindow("请输入当前已连接Wifi的名称");
+                    return;
+                }
+
+                String pswd = etPswd.getText().toString().trim();
                 if (TextUtils.isEmpty(pswd)){
                     showInfoWindow("密码不能为空");
                     return;
                 }
 
-                loadingView.setVisibility(View.VISIBLE);
+                hideInput();
 
+                loadingView.setVisibility(View.VISIBLE);
                 StartaiAirkissManager.getInstance().startAirKiss(pswd, ssid, "".getBytes(), 1000 * 60, 0, 5);
+                break;
+            case R.id.cancel:
+                showInfoWindow("配网已取消");
+                StartaiAirkissManager.getInstance().stopAirKiss();
+                loadingView.setVisibility(View.GONE);
+                break;
+
+            case R.id.view_loading:
 
                 break;
         }
@@ -107,10 +130,17 @@ public class BConfigActivity extends BaseActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         if (SystemUtils.isConnectedWifi(this)){
             ssid = SystemUtils.getSSID(this);
-            etName.setText(ssid);
+            if (ssid.equals("") || ssid.contains("<unknown ssid>")){
+                ssid = "获取ssid失败,请手动输入当前wifi名称";
+                etName.setText("获取ssid失败,请手动输入当前wifi名称");
+                etName.setEnabled(true);
+            }else{
+                etName.setText(ssid);
+            }
         }else{
-            ssid = null;
+            ssid = "未检测到有WIFI连接";
             etName.setText("未检测到有WIFI连接");
+            etName.setEnabled(false);
         }
     }
 
@@ -124,14 +154,32 @@ public class BConfigActivity extends BaseActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (SystemUtils.isConnectedWifi(context)){
-                ssid = SystemUtils.getSSID(context);
-                etName.setText(ssid);
                 ToastUtils.showStatic(BConfigActivity.this, "检测到已经连接WIFI");
+                ssid = SystemUtils.getSSID(context);
+                if (ssid.equals("") || ssid.contains("<unknown ssid>")){
+                    ssid = "获取ssid失败,请手动输入当前wifi名称";
+                    etName.setText("获取ssid失败,请手动输入当前wifi名称");
+                    etName.setEnabled(true);
+                }else{
+                    etName.setText(ssid);
+                }
             }else{
-                ssid = null;
-                etName.setText("未检测到有WIFI连接");
                 ToastUtils.showStatic(BConfigActivity.this, "未检测到有WIFI连接");
+                ssid = "未检测到有WIFI连接";
+                etName.setText("未检测到有WIFI连接");
+                etName.setEnabled(false);
             }
+        }
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    protected void hideInput() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        View v = getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
 

@@ -9,15 +9,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.ct7liang.wificonfig.R;
+import com.android.ct7liang.wificonfig.b.SystemUtils;
 import com.android.ct7liang.wificonfig.base.BaseActivity;
 import com.ct7liang.tangyuan.utils.LogUtils;
 import com.ct7liang.tangyuan.utils.ToastUtils;

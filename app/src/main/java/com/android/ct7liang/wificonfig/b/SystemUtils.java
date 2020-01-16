@@ -1,4 +1,4 @@
-package com.android.ct7liang.wificonfig.a;
+package com.android.ct7liang.wificonfig.b;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -21,20 +21,16 @@ public class SystemUtils {
 
     public static String getSSID(Context context){
         String ssid;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O||Build.VERSION.SDK_INT>=Build.VERSION_CODES.P) {
-            WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            WifiInfo info = mWifiManager.getConnectionInfo();
-            ssid = info.getSSID();
-
-            return ssid.replace("\"", "");
-        } else if (Build.VERSION.SDK_INT==Build.VERSION_CODES.O_MR1){
+        if (Build.VERSION.SDK_INT==Build.VERSION_CODES.O_MR1){
             ConnectivityManager connManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
             ssid = networkInfo.getExtraInfo();
-
-            return ssid.replace("\"", "");
+            return ssid == null ? "" : ssid.replace("\"", "");
         }else{
-            return "<unknown ssid>暂无Android9.0以上版本方案";
+            WifiManager mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            WifiInfo info = mWifiManager.getConnectionInfo();
+            ssid = info.getSSID();
+            return ssid == null ? "" : ssid.replace("\"", "");
         }
     }
 

@@ -57,7 +57,6 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:enabled="false"
             android:background="#FFFFFF"/>
 
         <TextView
@@ -95,6 +94,51 @@
 
     </LinearLayout>
 
-    <include layout="@layout/page_waite" android:id="@+id/view_loading" android:visibility="gone"/>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/view_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#44000000">
+        <RelativeLayout
+            android:layout_centerInParent="true"
+            android:layout_width="300dp"
+            android:layout_height="110dp"
+            android:background="@drawable/wifi_bg_1">
+            <com.tuyenmonkey.mkloader.MKLoader
+                android:id="@+id/mk_loader"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:mk_color="#2890F7"
+                app:mk_type="ClassicSpinner"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:layout_toRightOf="@id/mk_loader"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="配网中,请稍后..."
+                android:gravity="center"
+                android:textColor="#2890F7"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="14sp"
+                android:text="关闭"
+                android:gravity="center"
+                android:textColor="#DD5347"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
